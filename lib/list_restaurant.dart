@@ -16,13 +16,26 @@ class ListRestaurantPage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<String>(
-        future: DefaultAssetBundle.of(context).loadString('assets/restaurants.json'),
+        future: DefaultAssetBundle.of(context)
+            .loadString('assets/restaurants.json'),
         builder: (context, snapshot) {
           final List<Restaurant> restaurants = parseRestaurants(snapshot.data);
           return ListView.builder(
             itemCount: restaurants.length,
             itemBuilder: (context, index) {
-              return _buildRestaurantItem(context, restaurants[index]);
+              if (snapshot.connectionState != ConnectionState.done) {
+                return Center(child: const CircularProgressIndicator());
+              } else {
+                if (snapshot.hasData) {
+                  return _buildRestaurantItem(context, restaurants[index]);
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              }
             },
           );
         },
