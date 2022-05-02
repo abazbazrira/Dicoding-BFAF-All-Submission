@@ -1,7 +1,8 @@
-import 'package:dicoding_bfaf_submission/detail_restaurant.dart';
-import 'package:dicoding_bfaf_submission/list_restaurant.dart';
-import 'package:dicoding_bfaf_submission/restaurant.dart';
-import 'package:dicoding_bfaf_submission/styles.dart';
+import 'package:dicoding_bfaf_submission/data/model/restaurant.dart';
+import 'package:dicoding_bfaf_submission/ui/detail_restaurant.dart';
+import 'package:dicoding_bfaf_submission/ui/list_restaurant.dart';
+import 'package:dicoding_bfaf_submission/common/styles.dart';
+import 'package:dicoding_bfaf_submission/ui/search_restaurant.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -45,10 +46,8 @@ class MyApp extends StatelessWidget {
         DetailRestaurantPage.routeName: (context) => DetailRestaurantPage(
             restaurant:
                 ModalRoute.of(context)?.settings.arguments as Restaurant),
+        SearchRestaurant.routeName: (context) => const SearchRestaurant(),
       },
-      // home: const MyHomePage(
-      //   title: 'Test Page',
-      // ),
     );
   }
 }
