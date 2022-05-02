@@ -183,14 +183,11 @@ class DetailRestaurantPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: value.result.customerReviews!.length,
-                        itemBuilder: (context, index) {
-                          var customerReview =
-                              value.result.customerReviews![index];
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: value.result.customerReviews!.map((customerReview) {
                           return ItemReview(customerReview: customerReview);
-                        },
+                        }).toList(),
                       ),
                     ],
                   ),

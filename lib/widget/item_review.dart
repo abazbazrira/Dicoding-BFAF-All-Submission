@@ -12,7 +12,7 @@ class ItemReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+      margin: const EdgeInsets.only(bottom: 24, top: 16, left: 16, right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
