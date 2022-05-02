@@ -1,7 +1,7 @@
 class CustomerReview {
-  late String? name;
-  late String? review;
-  late String? date;
+  late String name;
+  late String review;
+  late String date;
 
   CustomerReview({
     required this.name,

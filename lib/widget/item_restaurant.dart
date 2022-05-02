@@ -1,11 +1,14 @@
-import 'package:dicoding_bfaf_submission/ui/detail_restaurant.dart';
 import 'package:dicoding_bfaf_submission/data/model/restaurant.dart';
+import 'package:dicoding_bfaf_submission/ui/detail_restaurant.dart';
 import 'package:flutter/material.dart';
 
 class ItemRestaurant extends StatelessWidget {
   final Restaurant restaurant;
 
-  const ItemRestaurant({required this.restaurant});
+  const ItemRestaurant({
+    Key? key,
+    required this.restaurant,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

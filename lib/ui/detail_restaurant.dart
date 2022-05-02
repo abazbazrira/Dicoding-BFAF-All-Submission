@@ -2,6 +2,7 @@ import 'package:dicoding_bfaf_submission/data/api/api_service.dart';
 import 'package:dicoding_bfaf_submission/data/model/restaurant.dart';
 import 'package:dicoding_bfaf_submission/provider/detail_restaurant_provider.dart';
 import 'package:dicoding_bfaf_submission/util/result_state.dart';
+import 'package:dicoding_bfaf_submission/widget/item_review.dart';
 import 'package:dicoding_bfaf_submission/widget/platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -105,10 +106,6 @@ class DetailRestaurantPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(vertical: 8.0),
-                      //   child: Text(value.result.categories.map((e) => e.name).toString()),
-                      // ),
                       const Padding(
                         padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                         child: Divider(
@@ -119,11 +116,20 @@ class DetailRestaurantPage extends StatelessWidget {
                         value.result.description,
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 36.0, bottom: 8.0),
-                        child: Text(
-                          'Foods',
-                          style: Theme.of(context).textTheme.headline6,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Divider(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            'Foods',
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Column(
@@ -139,11 +145,14 @@ class DetailRestaurantPage extends StatelessWidget {
                           );
                         }).toList(),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 26.0, bottom: 8.0),
-                        child: Text(
-                          'Drinks',
-                          style: Theme.of(context).textTheme.headline6,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 26.0, bottom: 8.0),
+                          child: Text(
+                            'Drinks',
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       Column(
@@ -158,6 +167,30 @@ class DetailRestaurantPage extends StatelessWidget {
                             ),
                           );
                         }).toList(),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Divider(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          child: Text(
+                            'Reviews',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: value.result.customerReviews!.length,
+                        itemBuilder: (context, index) {
+                          var customerReview =
+                              value.result.customerReviews![index];
+                          return ItemReview(customerReview: customerReview);
+                        },
                       ),
                     ],
                   ),
