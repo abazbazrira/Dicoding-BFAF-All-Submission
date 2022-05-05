@@ -1,23 +1,23 @@
 import 'package:dicoding_bfaf_submission/data/api/api_service.dart';
 import 'package:dicoding_bfaf_submission/data/model/restaurant.dart';
-import 'package:dicoding_bfaf_submission/util/result_state.dart';
+import 'package:dicoding_bfaf_submission/utils/result_state.dart';
 import 'package:flutter/material.dart';
 
 class SearchRestaurantProvider extends ChangeNotifier {
   final ApiService apiService;
 
+  List<Restaurant> get result => _restaurant;
+  late List<Restaurant> _restaurant;
+
+  String get message => _message;
+  String _message = 'Find your favorite restaurant!';
+
+  ResultState? get state => _state;
+  ResultState? _state;
+
   SearchRestaurantProvider({
     required this.apiService,
   });
-
-  late List<Restaurant> _restaurant;
-  ResultState? _state;
-
-  String _message = 'Find your favorite restaurant!';
-  String get message => _message;
-
-  List<Restaurant> get result => _restaurant;
-  ResultState? get state => _state;
 
   Future<dynamic> fetchRestaurants(String query) async {
     try {
@@ -43,7 +43,7 @@ class SearchRestaurantProvider extends ChangeNotifier {
       }
     } catch (e) {
       _state = ResultState.error;
-      _message = 'Something problem and Try again later\n\n$e';
+      _message = 'Something problem and Try again later';
       notifyListeners();
     }
   }

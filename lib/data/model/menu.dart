@@ -1,9 +1,8 @@
-import 'package:dicoding_bfaf_submission/data/model/drink.dart';
-import 'package:dicoding_bfaf_submission/data/model/food.dart';
+import 'package:dicoding_bfaf_submission/data/model/food_drink.dart';
 
 class Menu {
-  late List<Food> foods;
-  late List<Drink> drinks;
+  late List<FoodDrink> foods;
+  late List<FoodDrink> drinks;
 
   Menu({
     required this.foods,
@@ -12,11 +11,13 @@ class Menu {
 
   Menu.fromJson(Map<String, dynamic> menu) {
     if (menu['foods'] != null) {
-      foods = List<Food>.from(menu['foods'].map((x) => Food.fromJson(x)));
+      foods =
+          List<FoodDrink>.from(menu['foods'].map((x) => FoodDrink.fromJson(x)));
     }
 
     if (menu['drinks'] != null) {
-      drinks = List<Drink>.from(menu['drinks'].map((x) => Drink.fromJson(x)));
+      drinks = List<FoodDrink>.from(
+          menu['drinks'].map((x) => FoodDrink.fromJson(x)));
     }
   }
 }

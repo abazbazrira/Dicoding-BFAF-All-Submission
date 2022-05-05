@@ -1,11 +1,11 @@
-class Food {
+class FoodDrink {
   late String name;
 
-  Food({
+  FoodDrink({
     required this.name,
   });
 
-  Food.fromJson(Map<String, dynamic> food) {
+  FoodDrink.fromJson(Map<String, dynamic> food) {
     name = food['name'];
   }
 }

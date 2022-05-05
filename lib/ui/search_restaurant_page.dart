@@ -1,8 +1,10 @@
 import 'package:dicoding_bfaf_submission/data/api/api_service.dart';
 import 'package:dicoding_bfaf_submission/provider/search_restaurant_provider.dart';
-import 'package:dicoding_bfaf_submission/util/result_state.dart';
-import 'package:dicoding_bfaf_submission/widget/item_restaurant.dart';
-import 'package:dicoding_bfaf_submission/widget/platform_widget.dart';
+import 'package:dicoding_bfaf_submission/utils/result_state.dart';
+import 'package:dicoding_bfaf_submission/widgets/error_state_widget.dart';
+import 'package:dicoding_bfaf_submission/widgets/item_restaurant_widget.dart';
+import 'package:dicoding_bfaf_submission/widgets/loading_state_widget.dart';
+import 'package:dicoding_bfaf_submission/widgets/platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +21,8 @@ class SearchRestaurant extends StatefulWidget {
 class _SearchRestaurantState extends State<SearchRestaurant> {
   final String title = 'Restaurant';
   String query = '';
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+  static const _labelText = 'Find the restaurant by name, category or menu';
 
   @override
   void dispose() {
@@ -54,7 +57,7 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
                 controller: _controller,
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
-                  labelText: 'Find the restaurant by name, category or menu',
+                  labelText: _labelText,
                 ),
                 onChanged: (String s) {
                   setState(() {
@@ -79,58 +82,24 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
   Widget _buildList(BuildContext context) {
     return Consumer<SearchRestaurantProvider>(
       builder: (context, value, _) {
-        if (value.state == ResultState.loading) {
-          return Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 16),
-                  child: Text(value.message),
-                ),
-              ],
-            ),
-          );
-        } else if (value.state == ResultState.hasData) {
+        if (value.state == ResultState.hasData) {
           return ListView.builder(
             shrinkWrap: true,
             itemCount: value.result.length,
             itemBuilder: (context, index) {
               var restaurant = value.result[index];
-              return ItemRestaurant(restaurant: restaurant);
+              return ItemRestaurantWidget(restaurant: restaurant);
             },
           );
+        } else if (value.state == ResultState.loading) {
+          return LoadingStateWidget(message: value.message);
         } else if (value.state == ResultState.noData) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48.0),
-              child: Text(
-                value.message,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          return ErrorStateWidget(message: value.message);
         } else if (value.state == ResultState.error) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48.0),
-              child: Text(
-                value.message,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          return ErrorStateWidget(message: value.message);
         } else {
-          return Center(
-            child: Text(
-              value.message,
-              textAlign: TextAlign.center,
-            ),
-          );
+          return const ErrorStateWidget(
+              message: 'Something proble. Try again later.');
         }
       },
     );
@@ -150,7 +119,7 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
   Widget _iosBuilder(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: Text(
+        middle: Text(
           title,
         ),
       ),

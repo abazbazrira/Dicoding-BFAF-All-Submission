@@ -1,10 +1,10 @@
 import 'package:dicoding_bfaf_submission/data/model/customer_review.dart';
 import 'package:flutter/material.dart';
 
-class ItemReview extends StatelessWidget {
+class ItemReviewWidget extends StatelessWidget {
   final CustomerReview customerReview;
 
-  const ItemReview({
+  const ItemReviewWidget({
     Key? key,
     required this.customerReview,
   }) : super(key: key);

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dicoding_bfaf_submission/data/model/restaurant.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {

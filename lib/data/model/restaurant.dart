@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dicoding_bfaf_submission/data/model/category.dart';
 import 'package:dicoding_bfaf_submission/data/model/customer_review.dart';
 import 'package:dicoding_bfaf_submission/data/model/menu.dart';
-import 'package:dicoding_bfaf_submission/util/set_default_value.dart';
+import 'package:dicoding_bfaf_submission/utils/set_default_value.dart';
 
 class BaseResponse {
   late bool? error;
@@ -62,13 +62,31 @@ class Restaurant {
         : null;
     city = checkStringIsNull(restaurant['city']);
     customerReviews = (restaurant['customerReviews'] != null)
-        ? List<CustomerReview>.from(restaurant['customerReviews'].map((x) => CustomerReview.fromJson(x)))
+        ? List<CustomerReview>.from(restaurant['customerReviews']
+            .map((x) => CustomerReview.fromJson(x)))
         : null;
     categories = (restaurant['categories'] != null)
-        ? List<Categories>.from(restaurant['categories'].map((x) => Categories.fromJson(x)))
+        ? List<Categories>.from(
+            restaurant['categories'].map(
+              (x) => Categories.fromJson(x),
+            ),
+          )
         : null;
   }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "pictureId": pictureId,
+        "city": city,
+        "rating": rating,
+      };
 }
+
+Map<String, dynamic> listRestaurantToJson(List<Restaurant> restaurants) => {
+      "restaurants": List<dynamic>.from(restaurants.map((e) => e.toJson())),
+    };
 
 List<Restaurant> listRestaurants(dynamic json) {
   if (json == null) {
